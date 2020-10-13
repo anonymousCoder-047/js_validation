@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./public/css/bootstrap.min.css">
+    <script src="./public/js/bootstrap.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="jumbotron">
+                <h1 style="text-align: center;">JS FORM VALIDATION</h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-6">
+            <form>
+                <div class="row">
+                  <div class="col">
+                    <p id="fname" style="display: none;" class="alert alert-info">Enter Your First Name</p>
+                    <input type="text" id="firstName" oninput="f_check()" class="form-control" placeholder="First name" required>
+                  </div>
+                  <div class="col">
+                    <p id="lname" style="display: none;" class="alert alert-info">Enter Your Last Name</p>
+                    <input type="text" id="lastName" oninput="l_check()" class="form-control" placeholder="Last name" required>
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col">
+                        <p id="eAlert" style="display: none;" class="alert alert-info">Enter Your Email</p>
+                      <input type="email" id="email" oninput="e_check()" class="form-control" placeholder="abc@example.com" required>
+                    </div>
+                    <div class="col">
+                        <p id="alert" style="display: none;" class="alert alert-info">Only 10 Digit Input Allowed</p>
+                      <input type="number" id="phone" class="form-control" oninput="maxlenght(this.id)" placeholder="998xxxxxxx" required>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col">
+                        <p id="pass" style="display: none;" class="alert alert-info">Password Incorrect</p>
+                      <input type="password" id="password" class="form-control" placeholder="Password" required>
+                    </div>
+                    <div class="col">
+                        <p id="cpass" style="display: none;" class="alert alert-info">Password Incorrect</p>
+                      <input type="password" id="confirmPassword" oninput="p_check()" class="form-control" placeholder="Confirm Password" required>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-2"></div>
+    </div>
+    <script>
+        function f_check() {
+            let  fname = document.getElementById('firstName').value;
+            let patt1 = /[1-4]/g;
+
+            if(fname === " " || fname.match(patt1)) {
+                document.getElementById('fname').style.display = "block";
+                document.getElementById('firstName').value = "";
+                setTimeout(() => { 
+                    document.getElementById('fname').style.display = "none";
+                }, 3000)
+            }
+        }
+
+        function l_check() {
+            let lname = document.getElementById('lastName').value;
+            let patt1 = /[1-4]/g;
+            if(lname === " " || lname.match(patt1)) {
+                document.getElementById('lname').style.display = "block";
+            }
+        }
+
+        function e_check() {
+            let e = document.getElementById('email');
+            if(!e.checkValidity()) {
+                document.getElementById('eAlert').style.display = "block";
+                document.getElementById('eAlert').innerHTML = e.validationMessage;
+                setTimeout(() => { 
+                    document.getElementById('eAlert').style.display = "none";
+                }, 3000)
+            }
+        }
+
+        function p_check() {
+            let p = document.getElementById('password').value;
+            let cp = document.getElementById('confirmPassword').value;
+            if(p === cp) {
+                console.log('true');
+            } else {
+                document.getElementById('pass').style.display = "block";
+                setTimeout(() => { 
+                    document.getElementById('pass').style.display = "none";
+                }, 3000)
+            }
+        }
+
+        function maxlenght(phone) {
+            let p = document.getElementById(phone).value;
+            let alert = document.getElementById('alert');
+            
+            if(p.length >= 10) {
+                document.getElementById(phone).disabled = true;
+                alert.style.display = "block";
+                setTimeout(() => {
+                    document.getElementById(phone).value = "";
+                    document.getElementById(phone).disabled = false;
+                    alert.style.display = "none";
+                }, 2000);
+            }
+        }
+    </script>
+</body>
+</html>
